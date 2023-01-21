@@ -20,12 +20,12 @@ const StyledProductImg = styled('img')({
 
 // ----------------------------------------------------------------------
 
-ShopProductCard.propTypes = {
+Clinic.propTypes = {
   product: PropTypes.object,
 };
 
-export default function ShopProductCard({ product }) {
-  const { name, clinicType, cost, limit, logo, longitude, latitude, workDays } = product;
+export default function Clinic({ clinic }) {
+  const { name, clinicType, cost, limit, logo, longitude, latitude, workDays } = clinic;
 
   return (
     <Card>

@@ -10,6 +10,7 @@ import Page404 from './pages/Page404';
 import DashboardAppPage from './pages/DashboardAppPage';
 import NewUser from './pages/NewUserPage';
 import ClinicsPage from './pages/ClinicsPage';
+import NewClinic from './pages/NewClinicPage';
 
 // ----------------------------------------------------------------------
 
@@ -33,6 +34,10 @@ export default function Router() {
     {
       path: 'new-user',
       element: <NewUser />
+    },
+    {
+      path: 'new-clinic',
+      element: <NewClinic />
     },
     {
       element: <SimpleLayout />,

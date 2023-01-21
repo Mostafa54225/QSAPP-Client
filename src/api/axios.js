@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'http://localhost:12952/api'
+    baseURL: 'http://qsappdev.somee.com/api'
 })
