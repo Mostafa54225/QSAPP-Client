@@ -49,7 +49,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 // ----------------------------------------------------------------------
-const REGISTER_URL = '/users/register';
+const CREATE_CLINIC_URL = '/clinics';
 
 export default function NewClinic() {
 
@@ -103,21 +103,31 @@ export default function NewClinic() {
   const uploadImage = (e) => {
     const file = e.target.files[0]
     setImageName(e.target.files[0].name)
-    setClinicImage(file)
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setClinicImage(reader.result)
+    };
+
   }
 
-  const handleClick = async () => {
+
+  const handleClick = async (e) => {
+    e.preventDefault()
+    const body = {
+      Name: clinicName,
+      RangeFrom: rangeFrom,
+      RangeTo: rangeTo,
+      LogoFile: clinicImage,
+      Logo: imageName,
+      Limit: limit,
+      WorkDays: workDays,
+      clinicType
+    }
     try {
-        // const response = await axios.post(REGISTER_URL, 
-        //     JSON.stringify({
-        //         UserName: clinicName, 
-        //         Password: password, 
-        //         NationalId: nationalId, 
-        //         PhoneNumber: phoneNumber,
-        //         RoleId: 1
-        //     }), {
-        //         headers: { 'Content-Type': 'application/json' }
-        //     })
+        const response = await axios.post(CREATE_CLINIC_URL, body, {
+          headers: { 'Content-Type': 'application/json' }, responseType: 'text'
+        })
 
         ShowNotification("Success", "User Created successfully!", "success")
         setClinicName('')
@@ -128,13 +138,7 @@ export default function NewClinic() {
         setLongitude()
     } catch (error) {
         console.log(error)
-        if (!error?.response) {
-            setErrMsg('No Server Response');
-        } else if (error.response?.status === 400) {
-            setErrMsg(error.response.data);
-        } else {
-            setErrMsg('Registration Failed')
-        }
+        ShowNotification("Error", "There's somthing wrong", "danger")
     }
   };
   return (
